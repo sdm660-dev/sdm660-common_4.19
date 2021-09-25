@@ -393,8 +393,10 @@ PRODUCT_PACKAGES += \
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(COMMON_PATH)/overlay \
-    $(COMMON_PATH)/overlay-lineage
+    $(LOCAL_PATH)/overlay \
+    $(LOCAL_PATH)/overlay-aospa
+
+PRODUCT_ENFORCE_RRO_TARGETS := *
 
 # RRO configuration
 TARGET_USES_RRO := true
