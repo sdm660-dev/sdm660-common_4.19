@@ -298,22 +298,9 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_PACKAGES += \
-    init.class_main.sh \
-    init.goodix.sh \
-    init.msm.usb.configfs.rc \
-    init.qcom.post_boot.sh \
-    init.qcom.early_boot.sh \
     init.qcom.sensors.sh \
     init.qti.dcvs.sh \
-    init.qcom.rc \
-    init.qcom.sh \
-    init.qcom.usb.rc \
-    init.qcom.usb.sh \
-    init.recovery.qcom.rc \
-    init.target.rc \
-    init.xiaomi_parts.rc \
-    init.verity.rc \
-    ueventd.qcom.rc
+    init.target.rc
 
 # FM
 ifeq ($(BOARD_HAVE_QCOM_FM),true)
@@ -621,3 +608,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
    DeviceSettings
 
+# QTI Components
+TARGET_COMMON_QTI_COMPONENTS := \
+    init

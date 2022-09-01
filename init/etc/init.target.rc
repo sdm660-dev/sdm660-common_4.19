@@ -222,7 +222,7 @@ on boot
 #Load WLAN driver
    insmod /vendor/lib/modules/wlan.ko
 
-#USB controller configuration
+# USB controller configuration
     setprop vendor.usb.rndis.func.name "rndis_bam"
     setprop vendor.usb.rmnet.func.name "rmnet_bam"
     setprop vendor.usb.rmnet.inst.name "rmnet"
@@ -247,7 +247,7 @@ on property:vendor.usb.controller=*
     chown system system /sys/class/power_supply/battery/charging_enabled
     chmod 0666 /sys/class/power_supply/battery/charging_enabled
 
-#Peripheral manager
+# Peripheral manager
 service vendor.per_mgr /system/vendor/bin/pm-service
     class core
     user system
@@ -516,6 +516,25 @@ service vendor.hvdcp_opti /vendor/bin/hvdcp_opti
     user system
     group system wakelock
     capabilities BLOCK_SUSPEND WAKE_ALARM
+
+service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
+    override
+    class hal
+    user audioserver
+    # media gid needed for /dev/fm (radio) and for /data/misc/media (tee)
+    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct oem_2901 wakelock
+    capabilities BLOCK_SUSPEND
+    ioprio rt 4
+    writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
+    onrestart restart audioserver
+
+service vendor.sensors-hal-1-0 /vendor/bin/hw/android.hardware.sensors@1.0-service
+    override
+    class hal
+    user system
+    group system input wakelock uhid
+    capabilities BLOCK_SUSPEND
+    rlimit rtprio 10 10
 
 #
 #service nqs /system/bin/nqs
